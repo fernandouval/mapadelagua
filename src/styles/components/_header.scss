@@ -1,0 +1,126 @@
+.main-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    background-color: #111;
+    box-shadow: 0 2px 3px rgba(66, 66, 66, 0.5);
+    &-fixed {
+        position: fixed;
+    }
+    .logo-op {
+        display: block;
+        float: left;
+        img {
+            display: block;
+            height: 30px;
+            margin: 10px 0 10px 20px;
+            @media screen and (max-width: 768px) {
+                margin: 10px 0 10px 10px;
+            }
+        }
+    }
+    .items {
+        position: absolute;
+        float: right;
+        padding: 30px 0;
+        top: 0;
+        right: 0;
+        @media screen and (max-width: 678px) {
+            display: none;
+        }
+        .item {
+            display: block;
+            float: left;
+            margin-left: 50px;
+            color: #D6D6D6;
+            height: 40px;
+            font: 400 17px/40px 'Oswald', sans-serif;
+            letter-spacing: 1px;
+            transition: color 0.4s ease 0s;
+            text-decoration: none;
+            a {
+                color: inherit;
+                text-decoration: inherit;
+            }
+            &:hover {
+                color: #ffffff;
+                text-decoration: underline;
+            }
+        }
+    }
+    .navbar {
+        background-color: transparent;
+        height: 100%;
+    }
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+    .share {
+        position: absolute;
+        float: right;
+        padding: 10px 0;
+        top: 0;
+        right: 10px;
+        .item {
+            display: block;
+            float: left;
+            min-width: 30px;
+            margin-left: 7px;
+            color: $black;
+            background-color: $white;
+            height: 30px;
+            line-height: 30px;
+            transition: all 0.15s ease 0s;
+
+            img {
+                width: 18px;
+                height: 18px;
+            }
+            .counter {
+                display: block;
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: 1px;
+                text-align: center;
+            }
+            a {
+                display: block;
+            }
+            &.facebook,
+            &.twitter {
+                text-align: center;
+                font-size: 16px;
+                height: 30px;
+                width: 30px;
+                padding: 0;
+            }
+            &.subscribe {
+                padding: 0 7px;
+                font-size: 14px;
+                @media screen and (max-width: 768px) {
+                    display: none;
+                }
+            }
+            &.facebook:hover {
+                background-color: #445CAA;
+                
+                img {
+                    filter: invert(1);
+                }
+            }
+            &.twitter:hover {
+                background-color: #55ACEE;
+                img {
+                    filter: invert(1);
+                }
+            }
+            &.subscribe:hover {
+                background-color: #757575;
+                color: #fff;
+            }
+        }
+    }
+}

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <!-- TODO: Cambiar header -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="https://ojo-publico.com/favicon.ico" type="image/vnd.microsoft.icon" />
+    <title>Mineras extraen agua de zonas en riesgo de sequía - OjoPúblico</title>
+    <meta name="description" content="Empresas tienen licencias perpetuas en 12 cuencas con escasez, conflictos y contaminación.">
+    <meta property="fb:app_id" content="1501553810140130" />
+    <meta property="og:url" content="https://duenosdelagua.ojo-publico.com/especiales/mapadelagua/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Mineras extraen agua de zonas en riesgo de sequía" />
+    <meta property="og:description" content="Empresas tienen licencias perpetuas en 12 cuencas con escasez, conflictos y contaminación."
+    />
+    <meta property="og:image" content="https://duenosdelagua.ojo-publico.com/especiales/mapadelagua/dist/images/og-facebook.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@Ojo_Publico" />
+    <link rel="canonical" href="https://duenosdelagua.ojo-publico.com/especiales/mapadelagua/" />
+
+    <link rel="stylesheet" href="vendor/owl.carousel.min.css">
+    <link rel="stylesheet" href="vendor/chosen.css">
+    <link rel="stylesheet" href="dist/styles/screen.min.css">
+    <link rel="stylesheet" type="text/css" href="src/styles/cot.css">
+</head>
+
+<body>
+    <div class="viz-container">
+      <div class="aside">
+        <h1 class="title">El destino del agua</h1>
+        <div class="abstract">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </div>
+        <div class="legend">
+          <div class="label">Nivel de riesgo:</div>
+          <ul>
+              <li class="has-tooltip" data-info="Cuencas en situación muy crítica.">
+                  <span class="square prioridad-1"></span> Muy alto</li>
+              <li class="has-tooltip" data-info="Cuencas en situación grave.">
+                  <span class="square prioridad-2"></span> Alto</li>
+              <li class="has-tooltip" data-info="Cuencas que pueden ser rápidamente recuperadas.">
+                  <span class="square prioridad-5"></span> Medio</li>
+              <li class="has-tooltip" data-info="Cuencas en condición óptima.">
+                  <span class="square prioridad-8"></span> Muy Bajo</li>
+          </ul>
+        </div>
+        <div class="list" id="results"></div>
+      </div>
+      <div class="map-container">
+          <div class="tooltip" id="map-tooltip">
+              <div class="nombre"></div>
+              <div class="nro"></div>
+          </div>
+          <div class="zoom-controls">
+              <div class="zoom-in" id="btn-zoom-in">
+                  <img src="dist/images/zoom-in.png" alt="">
+              </div>
+              <div class="zoom-out" id="btn-zoom-out">
+                  <img src="dist/images/zoom-out.png" alt="">
+              </div>
+          </div>
+          <svg id="map"></svg>
+      </div>
+      <div class="results">
+          <div class="label">BUSCAR</div>
+          <div class="filters">
+              <div class="filter">
+                  <div class="label">Por departamento:</div>
+                  <select class="chosen-select" id="deptos">
+                      <option value="todos" selected>Todos</option>
+                  </select>
+              </div>
+              <div class="filter">
+                  <div class="label">Por empresa:</div>
+                  <select class="chosen-select" id="empresas">
+                      <option value="todos" selected>Todos</option>
+                  </select>
+              </div>
+              <div class="filter">
+                  <div class="label">Por uso:</div>
+                  <select class="chosen-select" id="usos">
+                      <option value="todos" selected>Todos</option>
+                  </select>
+              </div>
+              <div class="filter">
+                  <div class="label">Por destino:</div>
+                  <select class="chosen-select" id="destinos">
+                      <option value="todos" selected>Todos</option>
+                  </select>
+              </div>
+              <div class="filter">
+                  <div class="label">Por tipo:</div>
+                  <select class="chosen-select" id="tipos">
+                      <option value="todos" selected>Todos</option>
+                  </select>
+              </div>
+              <div class="filter-nivel">
+                  <div class="label">Nivel hídrico del suelo:</div>
+                  <div id="filtros-prioridad">
+                    <div class="main-prioridad" id="prioridad-0"><span class="prioridad-count"></span>Todos los niveles</div>
+                    <div class="prioridad" id="prioridad-1"><span class="prioridad-count"></span>Muy alto</div>
+                    <div class="prioridad" id="prioridad-2"><span class="prioridad-count"></span>Alto</div>
+                    <div class="prioridad" id="prioridad-3"><span class="prioridad-count"></span>Alto-Medio</div>
+                    <div class="prioridad" id="prioridad-4"><span class="prioridad-count"></span>Medio-Alto</div>
+                    <div class="prioridad" id="prioridad-5"><span class="prioridad-count"></span>Medio</div>
+                    <div class="prioridad" id="prioridad-6"><span class="prioridad-count"></span>Medio-Bajo</div>
+                    <div class="prioridad" id="prioridad-7"><span class="prioridad-count"></span>Bajo</div>
+                    <div class="prioridad" id="prioridad-8"><span class="prioridad-count"></span>Muy bajo</div>
+                  </div>
+              </div>
+          </div>
+          <div class="btn btn-hw" id="btn-hw">Descargar licencias</div>
+      </div>
+      <div class="modal" id="sin-licencias">
+        <button class="btn-close" id="close-info">Cerrar</button>
+        <p>
+          Te quedaste sin licencias :(. Comienza de nuevo!!!
+        </p>
+        <button class="btn btn-hw" id="reload-search">Recargar búsqueda</button>
+      </div>
+    </div>
+
+    <script src="vendor/jquery-3.2.1.min.js"></script>
+    <script src="vendor/d3.v4.min.js"></script>
+    <script src="vendor/d3-scale-chromatic.v1.min.js"></script>
+    <script src="vendor/topojson.v2.min.js"></script>
+    <script src="vendor/chosen.jquery.min.js"></script>
+    <script src="vendor/d3-cartogram.min.js"></script>
+    <script src="vendor/textures.min.js"></script>
+    <script src="vendor/typed.min.js"></script>
+    <script src="vendor/owl.carousel.min.js"></script>
+    <!-- Load billboard.js with style -->
+    <script src="vendor/billboard.min.js"></script>
+    <link rel="stylesheet" href="vendor/billboard.min.css">
+    <script src="dist/scripts/main.js"></script>
+    <script>
+      $('#prioridad-0').click(function(){
+        $('.prioridad').fadeTo("slow", 1);
+        topogram_agua.current_search.selected.niveles = 'todos';
+        topogram_agua.current_search.last_selected = 'niveles';
+        topogram_agua.updateResults();
+      });
+      $(".chosen-select").change(function () {
+        let val = this.value;
+        let filter = this.id;
+        topogram_agua.current_search.selected[filter] = val;
+        topogram_agua.current_search.last_selected = filter;
+        topogram_agua.updateResults();
+      });
+    </script>
+</body>
+
+</html>

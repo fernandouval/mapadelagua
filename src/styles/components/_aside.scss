@@ -1,0 +1,51 @@
+.posts-list {
+    position: fixed;
+    left: 0;
+    top: 50px;
+    height: calc(100vh - 50px);
+    background-color: #fff;
+    width: $aside-width;
+
+    box-shadow: 1px 0 3px rgba(66, 66, 66, 0.5);
+
+    .hash {
+        font-weight: 700;
+        font-size: 24px;
+        margin: 20px 15px;
+    }
+
+    .items {
+        margin: 10px 10px;
+
+        .item {
+            margin-bottom: 20px;
+            border-bottom: solid 1px #ddd;
+            padding-bottom: 10px;
+
+            &-wrapper {
+
+            }
+
+            &-picture {
+                img {
+                    width: 100%;
+                }
+            }
+
+            &-title {
+                margin-top: 5px;
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 1.2;
+            }
+
+            &:hover {
+                .item {
+                    &-title {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}
