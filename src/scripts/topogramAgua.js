@@ -11,7 +11,7 @@ let topogramAgua = function (options) {
     self.url_licencias = 'data/Permisos-de-agua-2011-2018-OP-parcial.csv';
 
     self.center = [-56,-32.5];
-    self.scale = 9000;
+    self.scale = 6000;
 
     self.body = d3.select("body");
     self.stat = d3.select("#status");
@@ -69,10 +69,10 @@ let topogramAgua = function (options) {
     };
 
     self.map_priorizacion = {
-        1: 'Muy Alta',
-        2: 'Alta',
-        3: 'Media',
-        4: 'Baja',
+        1: 'Muy Bajo',
+        2: 'Bajo',
+        3: 'Medio',
+        4: 'Muy alto',
     }
 
     self.transform = d3.zoomIdentity;
@@ -80,6 +80,10 @@ let topogramAgua = function (options) {
     self.init = function () {
         if ($(window).width() < 768) {
             self.width = $(window).width();
+            self.scale = 3000;
+        }
+        if ($(window).width() < 480) {
+            self.scale = 2000;
         }
         self.projection = d3.geoMercator()
             .scale(self.scale)
@@ -506,11 +510,12 @@ let topogramAgua = function (options) {
         self.g2.selectAll(".mark").remove();
         self.g2.selectAll(".mark")
           .data(marks).enter()
-          .append("image")
+          .append("circle")
           .attr('class','mark')
-          .attr('width', 10)
-          .attr('height', 10)
-          .attr("xlink:href",'https://cdn3.iconfinder.com/data/icons/softwaredemo/PNG/24x24/DrawingPin1_Blue.png')
+          .attr('r', 5)
+          .style("fill", "blue")
+          .style("opacity", "0.75")
+          //.attr("xlink:href",'https://cdn3.iconfinder.com/data/icons/softwaredemo/PNG/24x24/DrawingPin1_Blue.png')
           .attr("transform", d => `translate(${self.projection(d)})`
         );
         $("#results div").click(function () {
@@ -559,7 +564,7 @@ let topogramAgua = function (options) {
               console.log(filter_group[i].count);
               totals += filter_group[i].count;
               $('#prioridad-'+i).fadeTo("slow", 1);
-              $('#prioridad-'+i+' span').text('('+filter_group[i].count+') ');
+              $('#prioridad-'+i+' span').text(filter_group[i].count);
               $('#prioridad-'+i).click(function(){
                 $('.prioridad:not(#prioridad-'+i+')').fadeTo("slow", 0.4);
                 $('#prioridad-'+i).fadeTo("slow", 1);
@@ -570,7 +575,7 @@ let topogramAgua = function (options) {
             }
             else {
               $('#prioridad-'+i).fadeTo("slow", 0.4);
-              $('#prioridad-'+i+' span').text('(-) ');
+              $('#prioridad-'+i+' span').text('-');
             }
           }
           /*if ( Object.keys(filter_group).length === 1 ) {
@@ -578,7 +583,7 @@ let topogramAgua = function (options) {
           }
           else {
           }*/
-          $('#prioridad-0 span').text('('+totals+') ');
+          $('#prioridad-0 span').text(totals);
         }
         else {
           $('#'+filter_key+' option').remove();

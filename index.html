@@ -32,9 +32,8 @@
       <div class="aside">
         <h1 class="title">El destino del agua</h1>
         <div class="abstract">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </div>
+          Las aguas de dominio público pertenecen al Estado. Los habitantes del país pueden utilizarlas para bebida e higiene, para navegación, pesca y esparcimiento; todos los demás usos requieren de un permiso o concesión, según establece el Código de Aguas.
+          la diaria hizo un pedido de acceso a la información pública a Dinagua para tener datos sobre los beneficiarios de los permisos y concesiones de uso del agua superficial. En el mapa se detallan las empresas con permisos y concesiones otorgados entre 2011 y 2018; las renovaciones cuentan como un permiso. Además, se detalla para qué usos, destinos y tipo de obra fueron otorgados los permisos o concesiones. </div>
         <div class="legend">
           <div class="label">Nivel de riesgo:</div>
           <ul>
@@ -99,17 +98,17 @@
                   </select>
               </div>
               <div class="filter-nivel">
-                  <div class="label">Nivel hídrico del suelo:</div>
+                  <div class="label">Licencias | Nivel hídrico del suelo:</div>
                   <div id="filtros-prioridad">
-                    <div class="main-prioridad" id="prioridad-0"><span class="prioridad-count"></span>Todos los niveles</div>
-                    <div class="prioridad" id="prioridad-1"><span class="prioridad-count"></span>Muy alto</div>
-                    <div class="prioridad" id="prioridad-2"><span class="prioridad-count"></span>Alto</div>
-                    <div class="prioridad" id="prioridad-3"><span class="prioridad-count"></span>Alto-Medio</div>
-                    <div class="prioridad" id="prioridad-4"><span class="prioridad-count"></span>Medio-Alto</div>
-                    <div class="prioridad" id="prioridad-5"><span class="prioridad-count"></span>Medio</div>
-                    <div class="prioridad" id="prioridad-6"><span class="prioridad-count"></span>Medio-Bajo</div>
-                    <div class="prioridad" id="prioridad-7"><span class="prioridad-count"></span>Bajo</div>
-                    <div class="prioridad" id="prioridad-8"><span class="prioridad-count"></span>Muy bajo</div>
+                    <div class="main-prioridad" id="prioridad-0"><span class="prioridad-count"></span> | Todos los niveles</div>
+                    <div class="prioridad" id="prioridad-1"><span class="prioridad-count"></span> | Muy bajo</div>
+                    <div class="prioridad" id="prioridad-2"><span class="prioridad-count"></span> | Bajo</div>
+                    <div class="prioridad" id="prioridad-3"><span class="prioridad-count"></span> | Bajo-Medio</div>
+                    <div class="prioridad" id="prioridad-4"><span class="prioridad-count"></span> | Medio-Bajo</div>
+                    <div class="prioridad" id="prioridad-5"><span class="prioridad-count"></span> | Medio</div>
+                    <div class="prioridad" id="prioridad-6"><span class="prioridad-count"></span> | Medio-Alto</div>
+                    <div class="prioridad" id="prioridad-7"><span class="prioridad-count"></span> | Alto</div>
+                    <div class="prioridad" id="prioridad-8"><span class="prioridad-count"></span> | Muy Alto</div>
                   </div>
               </div>
           </div>
@@ -149,6 +148,12 @@
         let filter = this.id;
         topogram_agua.current_search.selected[filter] = val;
         topogram_agua.current_search.last_selected = filter;
+        topogram_agua.updateResults();
+      });
+      $('#reload-search').click(function(){
+        $('.prioridad').fadeTo("slow", 1);
+        topogram_agua.current_search.selected.niveles = 'todos';
+        topogram_agua.current_search.last_selected = 'niveles';
         topogram_agua.updateResults();
       });
     </script>
