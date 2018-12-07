@@ -32,7 +32,16 @@ let topogramAgua = function (options) {
         '2': "#F97857",
         "1": "#FF5252",
     };
-
+    self.niveles = {
+        '8': "Muy Alto",
+        "7": "Alto",
+        '6': "Medio-Alto",
+        "5": "Medio",
+        '4': "Medio-Bajo",
+        "3": "Bajo-Medio",
+        '2': "Bajo",
+        "1": "Muy bajo",
+    };
     self.data = {
         'cuencas': {},
         'empresas': {},
@@ -512,9 +521,9 @@ let topogramAgua = function (options) {
           .data(marks).enter()
           .append("circle")
           .attr('class','mark')
-          .attr('r', 5)
-          .style("fill", "blue")
-          .style("opacity", "0.75")
+          .attr('r', 4)
+          .style("fill", "darkblue")
+          //.style("opacity", "0.75")
           //.attr("xlink:href",'https://cdn3.iconfinder.com/data/icons/softwaredemo/PNG/24x24/DrawingPin1_Blue.png')
           .attr("transform", d => `translate(${self.projection(d)})`
         );
@@ -555,11 +564,26 @@ let topogramAgua = function (options) {
       $('.prioridad').click(false);
       $(".chosen-select").change(false);
       $.each(filter_obj, function (filter_key, filter_group) {
+        $('#'+filter_key+' option').remove();
+        //Si hay un solo objeto lo dejo seleccionado
+        $("#"+filter_key).append($("<option value='todos'></option>").text('todos'));
+        var last = '';
+        if ( Object.keys(filter_group).length === 1 ) {
+          var group_name = Object.keys(filter_group)[0];
+          $("#"+filter_key).append($("<option value='"+group_name+"'></option>").text('('+filter_group[group_name].count+') '+group_name));
+          $("#"+filter_key).val(group_name);
+        }
+        else {
+          $.each(filter_group, function (group_name, obj) {
+            $("#"+filter_key).append($("<option value='"+group_name+"'"+last+"></option>").text('('+obj.count+') '+group_name));
+          });
+        }
         //Filtro especial por nivel
         if ( filter_key == 'niveles' ){
           //// TODO: Seteo en 0 a priori
           var totals = 0;
           for (let i = 1; i < 9; i++) {
+            $('#niveles option[value="'+i+'"]').text(self.niveles[i]);
             if ( i in filter_group ){
               console.log(filter_group[i].count);
               totals += filter_group[i].count;
@@ -584,22 +608,6 @@ let topogramAgua = function (options) {
           else {
           }*/
           $('#prioridad-0 span').text(totals);
-        }
-        else {
-          $('#'+filter_key+' option').remove();
-          //Si hay un solo objeto lo dejo seleccionado
-          $("#"+filter_key).append($("<option value='todos'></option>").text('todos'));
-          var last = '';
-          if ( Object.keys(filter_group).length === 1 ) {
-            var group_name = Object.keys(filter_group)[0];
-            $("#"+filter_key).append($("<option value='"+group_name+"'></option>").text('('+filter_group[group_name].count+') '+group_name));
-            $("#"+filter_key).val(group_name);
-          }
-          else {
-            $.each(filter_group, function (group_name, obj) {
-              $("#"+filter_key).append($("<option value='"+group_name+"'"+last+"></option>").text('('+obj.count+') '+group_name));
-            });
-          }
         }
       });
     }

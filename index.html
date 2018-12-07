@@ -29,25 +29,47 @@
 
 <body>
     <div class="viz-container">
-      <div class="aside">
+      <div class="aside results">
         <h1 class="title">El destino del agua</h1>
-        <div class="abstract">
-          Las aguas de dominio público pertenecen al Estado. Los habitantes del país pueden utilizarlas para bebida e higiene, para navegación, pesca y esparcimiento; todos los demás usos requieren de un permiso o concesión, según establece el Código de Aguas.
-          la diaria hizo un pedido de acceso a la información pública a Dinagua para tener datos sobre los beneficiarios de los permisos y concesiones de uso del agua superficial. En el mapa se detallan las empresas con permisos y concesiones otorgados entre 2011 y 2018; las renovaciones cuentan como un permiso. Además, se detalla para qué usos, destinos y tipo de obra fueron otorgados los permisos o concesiones. </div>
-        <div class="legend">
-          <div class="label">Nivel de riesgo:</div>
-          <ul>
-              <li class="has-tooltip" data-info="Cuencas en situación muy crítica.">
-                  <span class="square prioridad-1"></span> Muy alto</li>
-              <li class="has-tooltip" data-info="Cuencas en situación grave.">
-                  <span class="square prioridad-2"></span> Alto</li>
-              <li class="has-tooltip" data-info="Cuencas que pueden ser rápidamente recuperadas.">
-                  <span class="square prioridad-5"></span> Medio</li>
-              <li class="has-tooltip" data-info="Cuencas en condición óptima.">
-                  <span class="square prioridad-8"></span> Muy Bajo</li>
-          </ul>
+        <div class="label">BUSCAR</div>
+        <div class="filters">
+          <div class="filter">
+            <div class="label">Por tipo:</div>
+            <select class="chosen-select" id="tipos">
+              <option value="todos" selected>Todos</option>
+            </select>
+          </div>
+          <div class="filter">
+            <div class="label">Por uso:</div>
+            <select class="chosen-select" id="usos">
+              <option value="todos" selected>Todos</option>
+            </select>
+          </div>
+          <div class="filter">
+            <div class="label">Por destino:</div>
+            <select class="chosen-select" id="destinos">
+              <option value="todos" selected>Todos</option>
+            </select>
+          </div>
+          <div class="filter">
+            <div class="label">Por nvel hídrico del suelo:</div>
+            <select class="chosen-select" id="niveles">
+              <option value="todos" selected>Todos</option>
+            </select>
+          </div>
+          <div class="filter">
+            <div class="label">Por departamento:</div>
+            <select class="chosen-select" id="deptos">
+              <option value="todos" selected>Todos</option>
+            </select>
+          </div>
+          <div class="filter">
+            <div class="label">Por empresa:</div>
+            <select class="chosen-select" id="empresas">
+              <option value="todos" selected>Todos</option>
+            </select>
+          </div>
         </div>
-        <div class="list" id="results"></div>
       </div>
       <div class="map-container">
           <div class="tooltip" id="map-tooltip">
@@ -65,53 +87,21 @@
           <svg id="map"></svg>
       </div>
       <div class="results">
-          <div class="label">BUSCAR</div>
-          <div class="filters">
-              <div class="filter">
-                  <div class="label">Por departamento:</div>
-                  <select class="chosen-select" id="deptos">
-                      <option value="todos" selected>Todos</option>
-                  </select>
-              </div>
-              <div class="filter">
-                  <div class="label">Por empresa:</div>
-                  <select class="chosen-select" id="empresas">
-                      <option value="todos" selected>Todos</option>
-                  </select>
-              </div>
-              <div class="filter">
-                  <div class="label">Por uso:</div>
-                  <select class="chosen-select" id="usos">
-                      <option value="todos" selected>Todos</option>
-                  </select>
-              </div>
-              <div class="filter">
-                  <div class="label">Por destino:</div>
-                  <select class="chosen-select" id="destinos">
-                      <option value="todos" selected>Todos</option>
-                  </select>
-              </div>
-              <div class="filter">
-                  <div class="label">Por tipo:</div>
-                  <select class="chosen-select" id="tipos">
-                      <option value="todos" selected>Todos</option>
-                  </select>
-              </div>
-              <div class="filter-nivel">
-                  <div class="label">Licencias | Nivel hídrico del suelo:</div>
-                  <div id="filtros-prioridad">
-                    <div class="main-prioridad" id="prioridad-0"><span class="prioridad-count"></span> | Todos los niveles</div>
-                    <div class="prioridad" id="prioridad-1"><span class="prioridad-count"></span> | Muy bajo</div>
-                    <div class="prioridad" id="prioridad-2"><span class="prioridad-count"></span> | Bajo</div>
-                    <div class="prioridad" id="prioridad-3"><span class="prioridad-count"></span> | Bajo-Medio</div>
-                    <div class="prioridad" id="prioridad-4"><span class="prioridad-count"></span> | Medio-Bajo</div>
-                    <div class="prioridad" id="prioridad-5"><span class="prioridad-count"></span> | Medio</div>
-                    <div class="prioridad" id="prioridad-6"><span class="prioridad-count"></span> | Medio-Alto</div>
-                    <div class="prioridad" id="prioridad-7"><span class="prioridad-count"></span> | Alto</div>
-                    <div class="prioridad" id="prioridad-8"><span class="prioridad-count"></span> | Muy Alto</div>
-                  </div>
-              </div>
-          </div>
+        <div class="main-prioridad" id="prioridad-0">Hay <span class="prioridad-count"></span> licencias en el país desde 2008, con los filtros aplicados.</div>
+        <div class="filter-nivel">
+            <div class="label">Licencias | Nivel hídrico del suelo:</div>
+            <div id="filtros-prioridad">
+              <div class="prioridad" id="prioridad-1"><span class="prioridad-count"></span> | Muy bajo</div>
+              <div class="prioridad" id="prioridad-2"><span class="prioridad-count"></span> | Bajo</div>
+              <div class="prioridad" id="prioridad-3"><span class="prioridad-count"></span> | Bajo-Medio</div>
+              <div class="prioridad" id="prioridad-4"><span class="prioridad-count"></span> | Medio-Bajo</div>
+              <div class="prioridad" id="prioridad-5"><span class="prioridad-count"></span> | Medio</div>
+              <div class="prioridad" id="prioridad-6"><span class="prioridad-count"></span> | Medio-Alto</div>
+              <div class="prioridad" id="prioridad-7"><span class="prioridad-count"></span> | Alto</div>
+              <div class="prioridad" id="prioridad-8"><span class="prioridad-count"></span> | Muy Alto</div>
+            </div>
+        </div>
+
           <div class="btn btn-hw" id="btn-hw">Descargar licencias</div>
       </div>
       <div class="modal" id="sin-licencias">
