@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="https://ojo-publico.com/favicon.ico" type="image/vnd.microsoft.icon" />
+    <!--<link rel="shortcut icon" href="https://ojo-publico.com/favicon.ico" type="image/vnd.microsoft.icon" />
     <title>Mineras extraen agua de zonas en riesgo de sequía - OjoPúblico</title>
     <meta name="description" content="Empresas tienen licencias perpetuas en 12 cuencas con escasez, conflictos y contaminación.">
     <meta property="fb:app_id" content="1501553810140130" />
@@ -19,7 +19,7 @@
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@Ojo_Publico" />
-    <link rel="canonical" href="https://duenosdelagua.ojo-publico.com/especiales/mapadelagua/" />
+    <link rel="canonical" href="https://duenosdelagua.ojo-publico.com/especiales/mapadelagua/" />-->
 
     <link rel="stylesheet" href="vendor/owl.carousel.min.css">
     <link rel="stylesheet" href="vendor/chosen.css">
@@ -30,7 +30,6 @@
 <body>
     <div class="viz-container">
       <div class="aside results">
-        <h1 class="title">El destino del agua</h1>
         <div class="label">BUSCAR</div>
         <div class="filters">
           <div class="filter">
@@ -87,7 +86,7 @@
           <svg id="map"></svg>
       </div>
       <div class="results">
-        <div class="main-prioridad" id="prioridad-0">Hay <span class="prioridad-count"></span> licencias en el país desde 2008, con los filtros aplicados.</div>
+        <div class="main-prioridad" id="prioridad-0">Hay <span style="font-weight: 700;"></span> licencias vigentes en el país desde 2008, con los filtros aplicados.</div>
         <div class="filter-nivel">
             <div class="label">Licencias | Nivel hídrico del suelo:</div>
             <div id="filtros-prioridad">
@@ -101,8 +100,8 @@
               <div class="prioridad" id="prioridad-8"><span class="prioridad-count"></span> | Muy Alto</div>
             </div>
         </div>
-
-          <div class="btn btn-hw" id="btn-hw">Descargar licencias</div>
+          <div class="list" id="results"></div>
+          <div class="btn btn-hw" id="download">Descargar datos</div>
       </div>
       <div class="modal" id="sin-licencias">
         <button class="btn-close" id="close-info">Cerrar</button>

@@ -10,7 +10,7 @@ let topogramAgua = function (options) {
     //self.url_licencias = 'data/Permisos_agua-2011-2018.csv';
     self.url_licencias = 'data/Permisos-de-agua-2011-2018-OP-parcial.csv';
 
-    self.center = [-56,-32.5];
+    self.center = [-56,-33.5];
     self.scale = 6000;
 
     self.body = d3.select("body");
@@ -165,11 +165,37 @@ let topogramAgua = function (options) {
         } else {
             self.svg.call(self.zoom);
         }
+        $('#download').click(function(){
+          // Use first element to choose the keys and the order
+          var keys = Object.keys(self.current_search.licencias[0]);
+
+          // Build header
+          var result = keys.join(",") + "\n";
+
+          // Add the rows
+          self.current_search.licencias.forEach(function(obj){
+              keys.forEach(function(k, ix){
+                  if (ix) result += ",";
+                  result += '"'+obj[k]+'"';
+              });
+              result += "\n";
+          });
+          var data, filename, link;
+          filename = 'permisos-agua.csv';
+          result = 'data:text/csv;charset=utf-8,' + result;
+          data = encodeURI(result);
+
+          link = document.createElement('a');
+          link.setAttribute('href', data);
+          link.setAttribute('download', filename);
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
     };
 
     self.loadData = function () {
         d3.json(self.url_topo, function (topo) {
-          console.log("TOPOJSON");
             self.prerenderCuencas(topo);
 
             d3.json(self.url_base, function (error, zones) {
@@ -235,7 +261,7 @@ let topogramAgua = function (options) {
             .data(self.geodata_deps.features)
             .enter()
             .append("path")
-            .attr("fill", self.custom_color['default'])
+            //.attr("fill", self.custom_color['default'])
             .style("opacity", 0.5)
             .style("pointer-events", "none")
             .attr("d", self.path);
@@ -262,7 +288,7 @@ let topogramAgua = function (options) {
             .data(self.cartogram.features(self.topology, self.geometries))
             .enter()
             .append("path")
-            //.attr("fill", self.custom_color['Media'])
+            .attr("fill", "transparent")
             .style("opacity", 0.5)
             .attr("d", self.path)
             .on('mousemove', function (d) {
@@ -271,9 +297,9 @@ let topogramAgua = function (options) {
             .on('mouseout', function () {
                 self.hideTooltip();
             })
-            .on('click', function (d, i) {
+            /*.on('click', function (d, i) {
                 self.showInfo(self.cuencas_feautres[i]);
-            });
+            })*/;
 
 
         var f = false;
@@ -474,7 +500,6 @@ let topogramAgua = function (options) {
     }
 
     self.updateResults = function (init = 0) {
-      console.log("update RESULTS!!!");
       if (init) {
         self.current_search.licencias = jQuery.extend(true, {}, self.licencias);
       }
@@ -523,15 +548,31 @@ let topogramAgua = function (options) {
           .attr('class','mark')
           .attr('r', 4)
           .style("fill", "darkblue")
-          //.style("opacity", "0.75")
+          .style("opacity", "0.75")
           //.attr("xlink:href",'https://cdn3.iconfinder.com/data/icons/softwaredemo/PNG/24x24/DrawingPin1_Blue.png')
           .attr("transform", d => `translate(${self.projection(d)})`
-        );
-        $("#results div").click(function () {
+          )
+          .on('click', function (d, i) {
+              var licencia = self.current_search.licencias[i];
+              let tooltip = d3.select("#map-tooltip");
+              let cords, left, top;
+              cords = self.transform.apply(self.projection(d));
+              left = cords[0];
+              top = cords[1];
+              tooltip.select('.nombre').text(licencia['RAZÓN SOCIAL']);
+              var ta = '<span>' + licencia['TIPO DE PERMISO'] + '</span>' + licencia['Tipo Obra'] + '<br>';
+              ta += '<span>' + licencia.uso + '</span>' + licencia.destino + '<br>';
+              tooltip.select('.nro').html(ta);
+              tooltip
+                .style('left', left + 'px')
+                .style('top', (top - 14) + 'px')
+                .style('display', 'block');
+          });
+        /*$("#results div").click(function () {
             $("#cuenca-info").show();
             let key = $(this).data('key');
             self.showInfo(self.data.cuencas[key].d);
-        });
+        });*/
 
         $("#results div").mouseover(function () {
             let key = $(this).data('key');
@@ -539,8 +580,6 @@ let topogramAgua = function (options) {
         }).mouseout(function () {
             self.hideTooltip();
         });
-        console.log(self.current_search);
-        console.log(self.current_search.last_selected);
       }
       if ( self.current_search.licencias.length == 0 ){
         console.log('Te quedaste sin licencias!');
@@ -574,8 +613,16 @@ let topogramAgua = function (options) {
           $("#"+filter_key).val(group_name);
         }
         else {
-          $.each(filter_group, function (group_name, obj) {
+          /*$.each(filter_group, function (group_name, obj) {
             $("#"+filter_key).append($("<option value='"+group_name+"'"+last+"></option>").text('('+obj.count+') '+group_name));
+          });*/
+          var groupFilters =[];
+          $.each(filter_group, function (group_name, obj) {
+            groupFilters.push([group_name, obj.count]);
+          });
+          //console.log(groupFilters.sort().reverse());
+          groupFilters.sort(function(a, b){return b[1] - a[1];}).forEach(function (opt) {
+            $("#"+filter_key).append($("<option value='"+opt[0]+"'></option>").text('('+opt[1]+') '+opt[0]));
           });
         }
         //Filtro especial por nivel

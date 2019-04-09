@@ -109,10 +109,9 @@ a {
 }
 
 .viz-container {
-    height: 100vh;
+    /*height: 100vh;*/
     width: 100%;
     position: relative;
-    background-color: #e9e9e9;
     color: #4e4444;
     overflow: hidden;
     @media screen and (max-width: 768px) {
@@ -875,6 +874,7 @@ b {
   border-top: 0.1rem solid;
 }
 .main-prioridad {
+  border: none;
 }
 .prioridad-count {
   width: 25%;
